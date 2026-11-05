@@ -31,7 +31,7 @@ public class Proyecto {
     private List<Tarea> tareas = new ArrayList<>();
 
     /*
-    Métodos helper - Producto
+    Métodos helper - Tarea
      */
 
     public Proyecto addTarea(Tarea t) {

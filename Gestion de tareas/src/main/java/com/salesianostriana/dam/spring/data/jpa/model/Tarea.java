@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -33,6 +36,49 @@ public class Etiqueta {
 
     private String nombre;
 >>>>>>>> feature/comentarios-etiquetas:Gestion de tareas/src/main/java/com/salesianostriana/dam/spring/data/jpa/model/Etiqueta.java
+
+    @OneToMany(mappedBy = "tarea", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    @ToString.Exclude
+    private List<Comentario> comentarios = new ArrayList<>();
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "tarea_etiqueta",
+            joinColumns = @JoinColumn(name = "tarea_id"),
+            inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
+    )
+    @Builder.Default
+    @ToString.Exclude
+    private Set<Etiqueta> etiquetas = new HashSet<>();
+
+
+    /*
+    Métodos helper - Comentario
+     */
+
+    public Tarea addComentario(Comentario c) {
+        comentarios.add(c);
+        c.setTarea(this);
+        return this;
+    }
+
+    public Tarea removeComentario(Comentario c) {
+        comentarios.remove(c);
+        c.setTarea(null);
+        return this;
+    }
+
+    // --- Métodos Helper / Auxiliares etiqueta---
+    public void addEtiqueta(Etiqueta etiqueta) {
+        this.etiquetas.add(etiqueta);
+        etiqueta.getTareas().add(this);
+    }
+
+    public void removeEtiqueta(Etiqueta etiqueta) {
+        this.etiquetas.remove(etiqueta);
+        etiqueta.getTareas().remove(this);
+    }
 
     @Override
     public final boolean equals(Object o) {
