@@ -1,7 +1,7 @@
 package com.salesianostriana.dam.spring.data.jpa;
 
-import com.salesianostriana.dam.spring.data.jpa.repository.CategoriaRepository;
-import com.salesianostriana.dam.spring.data.jpa.repository.ProductoRepository;
+import com.salesianostriana.dam.spring.data.jpa.repository.TareaRepository;
+import com.salesianostriana.dam.spring.data.jpa.repository.ProyectoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +16,8 @@ public class Application {
 
 
 	@Bean
-	CommandLineRunner init(CategoriaRepository categoriaRepository,
-						   ProductoRepository productoRepository) {
+	CommandLineRunner init(TareaRepository categoriaRepository,
+						   ProyectoRepository productoRepository) {
 		return args -> {
 
 			Categoria c = Categoria.builder()
