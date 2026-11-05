@@ -1,5 +1,7 @@
 package com.salesianostriana.dam.spring.data.jpa;
 
+import com.salesianostriana.dam.spring.data.jpa.repository.CategoriaRepository;
+import com.salesianostriana.dam.spring.data.jpa.repository.ProductoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
