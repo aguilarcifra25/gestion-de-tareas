@@ -1,11 +1,9 @@
-package com.salesianostriana.dam.spring.data.jpa;
+package com.salesianostriana.dam.spring.data.jpa.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -15,35 +13,17 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Categoria {
-
-    @Id
-    @GeneratedValue
+public class Comentario {
+    @Id @GeneratedValue
     private Long id;
 
-    private String nombre;
+    private String texto;
+    private String autor;
 
-    @OneToMany(mappedBy = "categoria")
-    @Builder.Default
+    @ManyToOne
+    @JoinColumn(name = "tarea_id")
     @ToString.Exclude
-    private List<Producto> productos = new ArrayList<>();
-
-    /*
-    Métodos helper - Producto
-     */
-
-    public Categoria addProducto(Producto p) {
-        productos.add(p);
-        p.setCategoria(this);
-        return this;
-    }
-
-    public Categoria removeProducto(Producto p) {
-        productos.remove(p);
-        p.setCategoria(null);
-        return this;
-    }
-
+    private Tarea tarea;
 
     @Override
     public final boolean equals(Object o) {
@@ -52,8 +32,8 @@ public class Categoria {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Categoria categoria = (Categoria) o;
-        return getId() != null && Objects.equals(getId(), categoria.getId());
+        Comentario comentario = (Comentario) o;
+        return getId() != null && Objects.equals(getId(), comentario.getId());
     }
 
     @Override
