@@ -28,7 +28,7 @@ public class Tarea {
     @JoinColumn(name = "proyecto_id")
     private Proyecto proyecto;
 
-    @OneToMany(mappedBy = "tarea")
+    @OneToMany(mappedBy = "tarea", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     private List<Comentario> comentarios = new ArrayList<>();
@@ -39,6 +39,8 @@ public class Tarea {
             joinColumns = @JoinColumn(name = "tarea_id"),
             inverseJoinColumns = @JoinColumn(name = "etiqueta_id")
     )
+    @Builder.Default
+    @ToString.Exclude
     private Set<Etiqueta> etiquetas = new HashSet<>();
 
 
