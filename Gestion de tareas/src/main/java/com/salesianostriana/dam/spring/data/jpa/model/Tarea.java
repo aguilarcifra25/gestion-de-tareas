@@ -1,5 +1,4 @@
-package com.salesianostriana.dam.spring.data.jpa;
-
+package com.salesianostriana.dam.spring.data.jpa.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,20 +13,17 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Producto {
+public class Tarea {
 
     @Id @GeneratedValue
     private Long id;
 
-
-    @Column(columnDefinition = "VARCHAR(512)")
-    private String nombre;
-
-    private double precio;
+    private String titulo;
+    private boolean estado;
 
     @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
+    @JoinColumn(name = "proyecto_id")
+    private Proyecto proyecto;
 
     @Override
     public final boolean equals(Object o) {
@@ -36,12 +32,13 @@ public class Producto {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Producto producto = (Producto) o;
-        return getId() != null && Objects.equals(getId(), producto.getId());
+        Tarea tarea = (Tarea) o;
+        return getId() != null && Objects.equals(getId(), tarea.getId());
     }
 
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
 }

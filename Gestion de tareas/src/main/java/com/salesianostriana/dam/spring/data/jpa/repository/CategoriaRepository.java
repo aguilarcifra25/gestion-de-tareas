@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.spring.data.jpa;
+package com.salesianostriana.dam.spring.data.jpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
